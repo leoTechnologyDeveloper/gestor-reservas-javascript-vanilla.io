@@ -18,17 +18,19 @@
         Reserva tu Cena con Nosotros
       </h1>
     </header>
-    <main class="main h-4/5 flex justify-center bg-gray-800" id="main">
+    <main
+      class="main h-4/5 flex justify-center bg-gray-100 bg-[url('./images/3.jpg')] bg-cover"
+      id="main"
+    >
       <section
-        class="mainContent bg-gradient-to-r from-violet-500 to-fuchsia-500 w-4/6 flex items-center justify-around flex-col md:flex-row border-2 border-green-500"
+        class="w10/12 md:w-4/6 flex items-center justify-around flex-col md:flex-row gap-4 bg-gradient-to-r from-blue-900 text-white p-3"
       >
         <!-- <h2>Estamos atentos a tu solicitud 1</h2> -->
 
-        <form
-          id="nueva-cita"
-          class="h-auto border-black border-2 p-3 text-center"
-        >
-          <legend class="mb-10">Estamos atentos a tu solicitud 2</legend>
+        <form id="nueva-cita" class="h-auto md:h-4/5 p-3 text-center">
+          <legend class="mb-10 font-bold text-xl bg-gray-800 p-3">
+            Estamos atentos a tu solicitud
+          </legend>
           <div class="divFormElement">
             <label class="">Nombre :</label>
             <div class="">
@@ -79,9 +81,27 @@
           </div>
         </form>
 
-        <div id="reservasContainer">
-          <h2>Tus Reservas</h2>
-          <div class="reservasActualesContainer"></div>
+        <div
+          id="reservasContainer"
+          class="h-auto md:h-4/5 border-4 border-gray-400 md:w-3/6 p-2 text-center"
+        >
+          <h2 class="text-center my-3 font-bold text-xl bg-gray-600">
+            Tus Reservas
+          </h2>
+          <div class="reservasActualesContainer">
+            <p class="bg-blue-950 filter-none text-white">
+              consectetur adipisicing elit.
+            </p>
+            <p class="bg-blue-950 filter-none text-white">
+              consectetur adipisicing elit.
+            </p>
+            <p class="bg-blue-950 filter-none text-white">
+              consectetur adipisicing elit.
+            </p>
+            <p class="bg-blue-950 filter-none text-white">
+              consectetur adipisicing elit.
+            </p>
+          </div>
         </div>
       </section>
     </main>
