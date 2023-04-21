@@ -9,7 +9,7 @@
     <!-- external links ---------------- -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="h-screen">
+  <body class="h-screen bg-gradient-to-l from-cyan-800 to-violet-900">
     <header
       class="header h-auto bg-gradient-to-r from-cyan-800 to-violet-900 p-2 md:p-4 flex justify-center content-center"
       id="header"
@@ -19,7 +19,7 @@
       </h1>
     </header>
     <main
-      class="main h-auto md:h-4/5 flex justify-center bg-[url('./images/3.jpg')] bg-cover bg-center"
+      class="main h-auto md:h-4/5 flex justify-center bg-[url('./images/3.jpg')] bg-cover bg-center pb-10"
       id="main"
     >
       <section
@@ -113,7 +113,7 @@
             Tus Reservas
           </h2>
           <!-- <div > -->
-          <ul class="reservasActualesContainer"></ul>
+          <ul id="reservasActualesContainer" class="border-2"></ul>
           <!-- <p class="bg-blue-950 filter-none text-white">
               consectetur adipisicing elit.
             </p>
@@ -130,9 +130,10 @@
         </div>
       </section>
     </main>
+
     <footer
       id="footer"
-      class="h-14 bg-gray-800 text-center flex justify-center items-center text-white"
+      class="fixed bottom-0 w-full h-20 bg-gray-800 text-center flex justify-center items-center text-white"
     >
       <p>Chat with Us</p>
       <svg
