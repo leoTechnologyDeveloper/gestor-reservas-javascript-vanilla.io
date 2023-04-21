@@ -39,6 +39,10 @@ class Citas {
         console.log(this.citas);
     }
 
+    eliminarCita(id) {
+        this.citas = this.citas.filter( cita => cita.id !== id);
+    }
+
 }
 
 class UI{
@@ -80,8 +84,8 @@ class UI{
 
         // Scripting de los elementos...
         const nombreH2 = document.createElement('h2');
-        nombreH2.classList.add('bg-yellow-300', 'text-gray-900');
-        nombreH2.innerHTML = `${nombre}`;
+        nombreH2.classList.add('bg-yellow-300', 'text-gray-900', 'uppercase');
+        nombreH2.innerHTML = `<span>Reserva a nombre de: </span> ${nombre}`;
 
         const telefonoParrafo = document.createElement('p');
         telefonoParrafo.innerHTML = `<span >Teléfono: </span> ${telefono}`;
@@ -97,20 +101,20 @@ class UI{
 
         //Agregar un contenedor para los botones de eliminar y editar
         const containerButtons = document.createElement('div');
-        containerButtons.classList.add('flex', 'justify-center', 'items-center');
+        containerButtons.classList.add('flex', 'justify-around', 'items-center');
         
         //Agregar un botón de eliminar...
         const btnEliminar = document.createElement('button');
-        //btnEliminar.onclick = () => eliminarCita(id); // añade la opción de eliminar
-        btnEliminar.classList.add('bg-red-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center');
-        btnEliminar.innerHTML = '<span>Eliminar</span><svg class="w-1/5 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
+        btnEliminar.onclick = () => eliminarCita(id); // añade la opción de eliminar
+        btnEliminar.classList.add('bg-red-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
+        btnEliminar.innerHTML = '<span>Eliminar</span><svg class="w-3/12 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
 
         // Añade un botón de editar...
          const btnEditar = document.createElement('button');
         // btnEditar.onclick = () => cargarEdicion(cita);
 
-         btnEditar.classList.add('bg-green-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center');
-         btnEditar.innerHTML = 'Editar <svg class="w-1/5 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
+         btnEditar.classList.add('bg-green-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
+         btnEditar.innerHTML = 'Editar <svg class="w-3/12 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
 
          containerButtons.appendChild(btnEliminar)
          containerButtons.appendChild(btnEditar)
@@ -184,5 +188,19 @@ function reiniciarObjeto() {
     citaObj.fecha = '';
     citaObj.hora = '';
     citaObj.cantidad = '';
+}
+
+
+// Funcion para eliminar una cita
+function eliminarCita(id) {
+
+    // Eliminar la cita
+    administrarCitas.eliminarCita(id);
+
+    // Muestra n mensaje 
+    ui.imprimirAlerta('La cita se eliminó correctamente');
+
+    // Refrescar las citas mostradas
+    ui.imprimirCitas(administrarCitas)
 }
 
