@@ -163,35 +163,35 @@ function nuevaCita(e) {
 
     // Validar
     if( nombre === '' || telefono === '' || fecha === ''  || hora === '' || cantidad === '' ) {
-        ui.imprimirAlerta('Todos los mensajes son Obligatorios', 'error')
+        ui.imprimirAlerta('Todos los campos son Obligatorios', 'error')
 
         return;
     }
 
 
-if (editando) {
-    // Mensaje de edición de nueva cita
-    ui.imprimirAlerta('Se ha editado Correctamente')
+    if (editando) {
+        // Mensaje de edición de nueva cita
+        ui.imprimirAlerta('Se ha editado Correctamente')
 
-    // Pasar el objeto de la cita a edición
-    administrarCitas.editarCita({...citaObj});
+        // Pasar el objeto de la cita a edición
+        administrarCitas.editarCita({...citaObj});
 
-    //Regresar el texto original del Botón 
-    form.querySelector('button[type="submit"]').textContent = "Crear Cita";
+        //Regresar el texto original del Botón 
+        form.querySelector('button[type="submit"]').textContent = "Crear Cita";
 
-    // Quitar el modo edición
-    editando = false;
-} else {
-    
-    // Mensaje de creacion de nueva cita
-    ui.imprimirAlerta('Se ha creado una nueva cita')
-    
-    // generar un id único
-    citaObj.id = Date.now();
-    
-    // Creando una nueva cita
-    administrarCitas.agregarCita({...citaObj});
-}
+        // Quitar el modo edición
+        editando = false;
+    } else {
+        
+        // Mensaje de creacion de nueva cita
+        ui.imprimirAlerta('Se ha creado una nueva cita')
+        
+        // generar un id único
+        citaObj.id = Date.now();
+        
+        // Creando una nueva cita
+        administrarCitas.agregarCita({...citaObj});
+    }
 
 
     // Reiniciar el formulario
@@ -199,6 +199,9 @@ if (editando) {
     
     // Imprimir el HTML de citas
     ui.imprimirCitas(administrarCitas);
+
+    //Reiniciando objeto
+    reiniciarObjeto();
 
 }
 
