@@ -7,7 +7,7 @@ const inputFecha = document.querySelector('#fecha');
 const inputHora = document.querySelector('#hora');
 const inputCantidad = document.querySelector('#cantidad');
 const reservasActualesContainer = document.querySelector('#reservasActualesContainer');
-
+let editando;
 
 // EVENT LISTENERS ********************************
 
@@ -41,6 +41,10 @@ class Citas {
 
     eliminarCita(id) {
         this.citas = this.citas.filter( cita => cita.id !== id);
+    }
+
+    editarCita(citaActualizada){
+        this.citas = this.citas.map(cita => cita.id === citaActualizada.id ? citaActualizada : cita );
     }
 
 }
@@ -101,19 +105,19 @@ class UI{
 
         //Agregar un contenedor para los botones de eliminar y editar
         const containerButtons = document.createElement('div');
-        containerButtons.classList.add('flex', 'justify-around', 'items-center');
+        containerButtons.classList.add('flex', 'justify-around', 'items-center', 'md:w-3/5', 'mx-auto', 'mt-2');
         
         //Agregar un botón de eliminar...
         const btnEliminar = document.createElement('button');
         btnEliminar.onclick = () => eliminarCita(id); // añade la opción de eliminar
-        btnEliminar.classList.add('bg-red-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
+        btnEliminar.classList.add('bg-red-500', 'text-white', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
         btnEliminar.innerHTML = '<span>Eliminar</span><svg class="w-3/12 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
 
         // Añade un botón de editar...
          const btnEditar = document.createElement('button');
-        // btnEditar.onclick = () => cargarEdicion(cita);
+         btnEditar.onclick = () => cargarEdicion(cita);
 
-         btnEditar.classList.add('bg-green-500', 'text-white', 'p-1', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
+         btnEditar.classList.add('bg-green-500', 'text-white', 'rounded-xl', 'flex', 'justify-center', 'items-center', 'w-2/5');
          btnEditar.innerHTML = 'Editar <svg class="w-3/12 h-1/5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
 
          containerButtons.appendChild(btnEliminar)
@@ -126,8 +130,7 @@ class UI{
         divCita.appendChild(horaParrafo);
         divCita.appendChild(cantidadParrafo);
         divCita.appendChild(containerButtons);
-        // divCita.appendChild(btnEliminar)
-        // divCita.appendChild(btnEditar)
+
 
         reservasActualesContainer.appendChild(divCita);
     });    
@@ -165,11 +168,31 @@ function nuevaCita(e) {
         return;
     }
 
+
+if (editando) {
+    // Mensaje de edición de nueva cita
+    ui.imprimirAlerta('Se ha editado Correctamente')
+
+    // Pasar el objeto de la cita a edición
+    administrarCitas.editarCita({...citaObj});
+
+    //Regresar el texto original del Botón 
+    form.querySelector('button[type="submit"]').textContent = "Crear Cita";
+
+    // Quitar el modo edición
+    editando = false;
+} else {
+    
+    // Mensaje de creacion de nueva cita
+    ui.imprimirAlerta('Se ha creado una nueva cita')
+    
     // generar un id único
     citaObj.id = Date.now();
-
+    
     // Creando una nueva cita
     administrarCitas.agregarCita({...citaObj});
+}
+
 
     // Reiniciar el formulario
     form.reset();
@@ -202,5 +225,34 @@ function eliminarCita(id) {
 
     // Refrescar las citas mostradas
     ui.imprimirCitas(administrarCitas)
+}
+
+
+// Carga los datos y activa el modo edición
+function cargarEdicion(citaEditable) {
+    const {nombre, telefono, fecha, hora, cantidad, id } = citaEditable;
+    
+    // Llenar los inpus a editar
+    inputNombre.value = nombre;
+    inputTelefono.value = telefono;
+    inputFecha.value = fecha;
+    inputHora.value = hora;
+    inputCantidad.value = cantidad;
+
+    // Llenar el objeto
+    citaObj.nombre = nombre;
+    citaObj.telefono = telefono;
+    citaObj.fecha = fecha;
+    citaObj.hora = hora;
+    citaObj.cantidad = cantidad;
+    citaObj.id = id;
+
+
+    //Cambiar el texto del Botón del formulario
+    form.querySelector('button[type="submit"]').textContent = "Guardar Cambios";
+
+    // Activando el modo edición
+    editando = true;
+
 }
 
